@@ -20,7 +20,7 @@ export default function InputKey() {
 
   return (
     <div className="pt-2">
-      <p className="text-xl">Get forecast for your location</p>
+      <p className="text-xl">Input your API key</p>
       <Input
         type="email"
         placeholder="API key"
