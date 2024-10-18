@@ -1,3 +1,4 @@
+import FetchAndDisplayData from "@/components/parts/fetchAndDisplay";
 import GetLocation from "@/components/parts/getLocation";
 import InputKey from "@/components/parts/inputKey";
 
@@ -7,6 +8,7 @@ export default function Home() {
       <p className="text-2xl pb-5">Get forecast for your location</p>
       <InputKey />
       <GetLocation />
+      <FetchAndDisplayData/>
     </div>
   );
 }
