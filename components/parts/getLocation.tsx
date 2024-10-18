@@ -4,10 +4,21 @@ import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 export default function GetLocation() {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
+  const [openErrorDialog, setOpenErrorDialog] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const storedLat = localStorage.getItem("userLat");
@@ -36,11 +47,13 @@ export default function GetLocation() {
           localStorage.setItem("userLon", lon.toString());
         },
         (error) => {
-          console.error("Error getting location: ", error);
+          setErrorMessage("Error getting location: " + error.message);
+          setOpenErrorDialog(true);
         }
       );
     } else {
-      console.error("Geolocation is not supported by this browser.");
+      setErrorMessage("Geolocation is not supported by this browser.");
+      setOpenErrorDialog(true);
     }
   };
 
@@ -84,6 +97,22 @@ export default function GetLocation() {
       <Button className="mt-2 ml-2" onClick={getCurrentLocation}>
         Get current location
       </Button>
+
+      <AlertDialog open={openErrorDialog} onOpenChange={setOpenErrorDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="font-[family-name:var(--font-geist-sans)] font-normal">Failed to get location</AlertDialogTitle>
+            <AlertDialogDescription className="font-[family-name:var(--font-geist-mono)]">
+              {errorMessage}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={() => setOpenErrorDialog(false)} className="font-[family-name:var(--font-geist-sans)] font-normal">
+              OK
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
