@@ -103,55 +103,55 @@ export default function FetchAndDisplayData() {
               currentWeatherIcon = "🌫️";
               break;
             case 51:
-              currentWeatherStatus = "Drizzle: Light intensity";
+              currentWeatherStatus = "Light drizzle";
               currentWeatherIcon = "🌧️";
               break;
             case 53:
-              currentWeatherStatus = "Drizzle: Moderate intensity";
+              currentWeatherStatus = "Moderate drizzle";
               currentWeatherIcon = "🌧️!";
               break;
             case 55:
-              currentWeatherStatus = "Drizzle: Dense intensity";
+              currentWeatherStatus = "Dense drizzle";
               currentWeatherIcon = "🌧️!!";
               break;
             case 56:
-              currentWeatherStatus = "Freezing Drizzle: Light intensity";
+              currentWeatherStatus = "Light freezing drizzle";
               currentWeatherIcon = "🌨️❄️";
               break;
             case 57:
-              currentWeatherStatus = "Freezing Drizzle: Dense intensity";
+              currentWeatherStatus = "Dense freezing drizzle";
               currentWeatherIcon = "🌨️❄️!!";
               break;
             case 61:
-              currentWeatherStatus = "Rain: Slight intensity";
+              currentWeatherStatus = "Light rain";
               currentWeatherIcon = "🌧️☔";
               break;
             case 63:
-              currentWeatherStatus = "Rain: Moderate intensity";
+              currentWeatherStatus = "Moderate rain";
               currentWeatherIcon = "🌧️☔!";
               break;
             case 65:
-              currentWeatherStatus = "Rain: Heavy intensity";
+              currentWeatherStatus = "Heavy rain";
               currentWeatherIcon = "🌧️☔!!";
               break;
             case 66:
-              currentWeatherStatus = "Freezing Rain: Light intensity";
+              currentWeatherStatus = "Light freezing rain";
               currentWeatherIcon = "🌨️❄️☔";
               break;
             case 67:
-              currentWeatherStatus = "Freezing Rain: Heavy intensity";
+              currentWeatherStatus = "Heavy freezing rain";
               currentWeatherIcon = "🌨️❄️☔!!";
               break;
             case 71:
-              currentWeatherStatus = "Snow fall: Slight intensity";
+              currentWeatherStatus = "Light snow fall";
               currentWeatherIcon = "🌨️";
               break;
             case 73:
-              currentWeatherStatus = "Snow fall: Moderate intensity";
+              currentWeatherStatus = "Moderate snow fall";
               currentWeatherIcon = "🌨️!";
               break;
             case 75:
-              currentWeatherStatus = "Snow fall: Heavy intensity";
+              currentWeatherStatus = "Heavy snow fall";
               currentWeatherIcon = "🌨️!!";
               break;
             case 77:
@@ -159,31 +159,31 @@ export default function FetchAndDisplayData() {
               currentWeatherIcon = "🌨️?";
               break;
             case 80:
-              currentWeatherStatus = "Rain showers: Slight intensity";
+              currentWeatherStatus = "Light rain showers";
               currentWeatherIcon = "🌧️☔";
               break;
             case 81:
-              currentWeatherStatus = "Rain showers: Moderate intensity";
+              currentWeatherStatus = "Moderate rain showers";
               currentWeatherIcon = "🌧️☔!";
               break;
             case 82:
-              currentWeatherStatus = "Rain showers: Violent intensity";
+              currentWeatherStatus = "Violent rain showers";
               currentWeatherIcon = "🌧️☔!!";
               break;
             case 85:
-              currentWeatherStatus = "Snow showers: Slight intensity";
+              currentWeatherStatus = "Light snow showers";
               currentWeatherIcon = "🌨️";
               break;
             case 86:
-              currentWeatherStatus = "Snow showers: Heavy intensity";
+              currentWeatherStatus = "Heavy snow showers";
               currentWeatherIcon = "🌨️!";
               break;
             case 95:
-              currentWeatherStatus = "Slight to moderate thunderstorms";
+              currentWeatherStatus = "Light to moderate thunderstorms";
               currentWeatherIcon = "⛈️";
               break;
             case 96:
-              currentWeatherStatus = "Thunderstorm with slight hail";
+              currentWeatherStatus = "Thunderstorm with light hail";
               currentWeatherIcon = "⛈️🌨️";
               break;
             case 99:
@@ -242,13 +242,15 @@ export default function FetchAndDisplayData() {
       {/* <pre>{data ? JSON.stringify(data, null, 2) : "..."}</pre> */}
       {data && (
         <>
-          <div className="" id="top-overview-component">
+          <div id="top-overview-component">
             <div className="font-outfit flex flex-wrap items-center">
               <p className="mr-2 text-6xl pb-2">{currentWeatherIcon}</p>
               <div>
-                <p>{currentWeatherStatus}</p>
+                <p className="text-neutral-600">{currentWeatherStatus}</p>
                 <p className="text-5xl">{forecast.temperature_2m}°C</p>
-                <p>Feels like {forecast.apparent_temperature}°C</p>
+                <p className="text-neutral-600">
+                  Feels like {forecast.apparent_temperature}°C
+                </p>
               </div>
             </div>
           </div>
@@ -256,32 +258,32 @@ export default function FetchAndDisplayData() {
           <Card className="w-full font-outfit mt-4">
             <CardContent>
               <div className="grid grid-cols-2 gap-4 pt-5">
-                <div className="flex items-center space-x-2">
-                  <Gauge className="h-5 w-5" />
+                <div className="flex items-center space-x-4">
+                  <Gauge className="h-8 w-8" />
                   <div>
-                    <p className="">Humidity</p>
-                    <p className="">{forecast.relative_humidity_2m}%</p>
+                    <p>Humidity</p>
+                    <p>{forecast.relative_humidity_2m}%</p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Droplets className="h-5 w-5" />
+                <div className="flex items-center space-x-4">
+                  <Droplets className="h-8 w-8" />
                   <div>
-                    <p className="">Precipitation</p>
-                    <p className="">{forecast.precipitation} mm</p>
+                    <p>Precipitation</p>
+                    <p>{forecast.precipitation} mm</p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <CloudRain className="h-5 w-5" />
+                <div className="flex items-center space-x-4">
+                  <CloudRain className="h-8 w-8" />
                   <div>
-                    <p className="">Rain</p>
-                    <p className="">{forecast.rain} mm</p>
+                    <p>Rain</p>
+                    <p>{forecast.rain} mm</p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Snowflake className="h-5 w-5" />
+                <div className="flex items-center space-x-4">
+                  <Snowflake className="h-8 w-8" />
                   <div>
-                    <p className="">Snow</p>
-                    <p className="">{forecast.snowfall} cm</p>
+                    <p>Snow</p>
+                    <p>{forecast.snowfall} cm</p>
                   </div>
                 </div>
               </div>
@@ -291,7 +293,7 @@ export default function FetchAndDisplayData() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-20">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="">Forecast Time</CardTitle>
+                <CardTitle>Forecast Time</CardTitle>
                 <Clock className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -300,7 +302,7 @@ export default function FetchAndDisplayData() {
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="">Temperature</CardTitle>
+                <CardTitle>Temperature</CardTitle>
                 <Thermometer className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -314,7 +316,7 @@ export default function FetchAndDisplayData() {
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="">Relative Humidity</CardTitle>
+                <CardTitle>Relative Humidity</CardTitle>
                 <Droplets className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -325,7 +327,7 @@ export default function FetchAndDisplayData() {
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="">Precipitation</CardTitle>
+                <CardTitle>Precipitation</CardTitle>
                 <Cloud className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -339,7 +341,7 @@ export default function FetchAndDisplayData() {
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="">Current Weather</CardTitle>
+                <CardTitle>Current Weather</CardTitle>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -362,7 +364,7 @@ export default function FetchAndDisplayData() {
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="">Pressure</CardTitle>
+                <CardTitle>Pressure</CardTitle>
                 <Gauge className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -373,7 +375,7 @@ export default function FetchAndDisplayData() {
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="">Wind</CardTitle>
+                <CardTitle>Wind</CardTitle>
                 <Wind className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
