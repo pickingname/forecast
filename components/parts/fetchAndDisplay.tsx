@@ -5,14 +5,15 @@ import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
+  CircleGauge,
   Clock,
   Cloud,
   CloudRain,
   Droplets,
   Gauge,
+  MoveUp,
   Snowflake,
   Thermometer,
-  Waves,
   Wind,
 } from "lucide-react";
 
@@ -238,10 +239,10 @@ export default function FetchAndDisplayData() {
         Fetch forecast
       </Button>
       {isLocationInvalid && <p className="text-red-600">Invalid location</p>}
-      <p className="text-xl pt-5 pb-3">Forecast result</p>
       {/* <pre>{data ? JSON.stringify(data, null, 2) : "..."}</pre> */}
       {data && (
         <>
+        <p className="text-xl pt-5 pb-3">Forecast result</p>
           <div id="top-overview-component">
             <div className="font-outfit flex flex-wrap items-center">
               <p className="mr-2 text-6xl pb-2">{currentWeatherIcon}</p>
@@ -262,14 +263,18 @@ export default function FetchAndDisplayData() {
                   <Gauge className="h-8 w-8" />
                   <div>
                     <p>Humidity</p>
-                    <p className="text-neutral-600">{forecast.relative_humidity_2m}%</p>
+                    <p className="text-neutral-600">
+                      {forecast.relative_humidity_2m}%
+                    </p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-4 justify-end">
                   <Droplets className="h-8 w-8" />
-                  <div>
+                  <div className="w-24">
                     <p>Precipitation</p>
-                    <p className="text-neutral-600">{forecast.precipitation} mm</p>
+                    <p className="text-neutral-600">
+                      {forecast.precipitation} mm
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
@@ -279,9 +284,9 @@ export default function FetchAndDisplayData() {
                     <p className="text-neutral-600">{forecast.rain} mm</p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-4 justify-end">
                   <Snowflake className="h-8 w-8" />
-                  <div>
+                  <div className="w-24">
                     <p>Snow</p>
                     <p className="text-neutral-600">{forecast.snowfall} cm</p>
                   </div>
@@ -290,105 +295,72 @@ export default function FetchAndDisplayData() {
             </CardContent>
           </Card>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-20">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle>Forecast Time</CardTitle>
-                <Clock className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{forecast.time}</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle>Temperature</CardTitle>
-                <Thermometer className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {forecast.temperature_2m}°C
+          <Card className="w-full font-outfit mt-4">
+            <CardContent>
+              <div className="grid grid-cols-2 gap-4 pt-5">
+                <div className="flex items-center space-x-4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    className="lucide lucide-windmill"
+                  >
+                    <path d="m10 14 8 4 2-4L4 6l2-4 8 4" />
+                    <path d="m8 8-4 8 4 2" />
+                    <path d="m16 12 4-8-4-2L6 22" />
+                    <path d="m19 22-2.4-4.6" />
+                    <path d="M12.5 20v2" />
+                    <path d="M4 22h17" />
+                  </svg>
+                  <div>
+                    <p>Wind Speed</p>
+                    <p className="text-neutral-600">
+                      {forecast.wind_speed_10m} km/h
+                    </p>
+                  </div>
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  Feels like {forecast.apparent_temperature}°C
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle>Relative Humidity</CardTitle>
-                <Droplets className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {forecast.relative_humidity_2m}%
+                <div className="flex items-center space-x-4 justify-end">
+                  <Wind className="h-8 w-8" />
+                  <div className="w-24">
+                    <p>Wind Gusts</p>
+                    <p className="text-neutral-600">
+                      {forecast.wind_gusts_10m} km/h
+                    </p>
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle>Precipitation</CardTitle>
-                <Cloud className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {forecast.precipitation} mm
+                <div className="flex items-center space-x-4">
+                  <MoveUp
+                    className="h-8 w-8"
+                    style={{
+                      transform: `rotate(${forecast.wind_direction_10m}deg)`,
+                      transformOrigin: 'center',
+                    }}
+                  />
+                  <div>
+                    <p>Wind Direction</p>
+                    <p className="text-neutral-600">
+                      {forecast.wind_direction_10m}°
+                    </p>
+                  </div>
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  Rain: {forecast.rain} mm | Snow: {forecast.snowfall} cm
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle>Current Weather</CardTitle>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="h-4 w-4 text-muted-foreground"
-                >
-                  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
-                </svg>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{currentWeatherStatus}</div>
-                <p className="text-xs text-muted-foreground">
-                  Cloud cover: {forecast.cloud_cover}%
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle>Pressure</CardTitle>
-                <Gauge className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {forecast.surface_pressure} hPa
+                <div className="flex items-center space-x-4 justify-end">
+                  <CircleGauge className="h-8 w-8" />
+                  <div className="w-24">
+                    <p>Pressure</p>
+                    <p className="text-neutral-600">
+                      {forecast.pressure_msl} hPa
+                    </p>
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle>Wind</CardTitle>
-                <Wind className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {forecast.wind_speed_10m} km/h
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  Direction: {forecast.wind_direction_10m} <br /> Gusts:{" "}
-                  {forecast.wind_gusts_10m} km/h
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </CardContent>
+          </Card>
         </>
       )}
     </div>

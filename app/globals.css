@@ -85,3 +85,12 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* hides scrollbar in webkit browsers (chrome, safari) */
+::-webkit-scrollbar {
+  display: none;
+}
+/* hides scrollbar in firefox */
+html {
+  scrollbar-width: none;
+}
