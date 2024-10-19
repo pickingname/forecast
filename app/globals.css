@@ -93,4 +93,5 @@ body {
 /* hides scrollbar in firefox */
 html {
   scrollbar-width: none;
+  scroll-behavior: smooth;
 }

@@ -239,7 +239,7 @@ export default function FetchAndDisplayData() {
       {/* <pre>{data ? JSON.stringify(data, null, 2) : "..."}</pre> */}
       {data && (
         <>
-        <p className="text-xl pt-5 pb-3">Forecast result</p>
+          <p className="text-xl pt-5 pb-3">Forecast result</p>
           <div id="top-overview-component">
             <div className="font-outfit flex flex-wrap items-center">
               <p className="mr-2 text-6xl pb-2">{currentWeatherIcon}</p>
@@ -253,7 +253,7 @@ export default function FetchAndDisplayData() {
             </div>
           </div>
 
-          <Card className="w-full font-outfit mt-4">
+          <Card className="w-full font-outfit mt-4" id="water">
             <CardContent>
               <div className="grid grid-cols-2 gap-4 pt-5">
                 <div className="flex items-center space-x-4">
@@ -292,7 +292,7 @@ export default function FetchAndDisplayData() {
             </CardContent>
           </Card>
 
-          <Card className="w-full font-outfit mt-4">
+          <Card className="w-full font-outfit mt-4" id="wind">
             <CardContent>
               <div className="grid grid-cols-2 gap-4 pt-5">
                 <div className="flex items-center space-x-4">
@@ -336,7 +336,7 @@ export default function FetchAndDisplayData() {
                     className="h-8 w-8"
                     style={{
                       transform: `rotate(${forecast.wind_direction_10m}deg)`,
-                      transformOrigin: 'center',
+                      transformOrigin: "center",
                     }}
                   />
                   <div>
