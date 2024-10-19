@@ -196,6 +196,12 @@ export default function FetchAndDisplayData() {
 
           setCurrentWeatherStatus(currentWeatherStatus);
           setCurrentWeatherIcon(currentWeatherIcon);
+
+          setTimeout(() => {
+            document
+              .getElementById("wind")
+              ?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 100);
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
@@ -336,7 +342,6 @@ export default function FetchAndDisplayData() {
                     className="h-8 w-8"
                     style={{
                       transform: `rotate(${forecast.wind_direction_10m}deg)`,
-                      transformOrigin: "center",
                     }}
                   />
                   <div>
