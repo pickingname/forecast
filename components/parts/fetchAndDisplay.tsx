@@ -262,28 +262,28 @@ export default function FetchAndDisplayData() {
                   <Gauge className="h-8 w-8" />
                   <div>
                     <p>Humidity</p>
-                    <p>{forecast.relative_humidity_2m}%</p>
+                    <p className="text-neutral-600">{forecast.relative_humidity_2m}%</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
                   <Droplets className="h-8 w-8" />
                   <div>
                     <p>Precipitation</p>
-                    <p>{forecast.precipitation} mm</p>
+                    <p className="text-neutral-600">{forecast.precipitation} mm</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
                   <CloudRain className="h-8 w-8" />
                   <div>
                     <p>Rain</p>
-                    <p>{forecast.rain} mm</p>
+                    <p className="text-neutral-600">{forecast.rain} mm</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
                   <Snowflake className="h-8 w-8" />
                   <div>
                     <p>Snow</p>
-                    <p>{forecast.snowfall} cm</p>
+                    <p className="text-neutral-600">{forecast.snowfall} cm</p>
                   </div>
                 </div>
               </div>
