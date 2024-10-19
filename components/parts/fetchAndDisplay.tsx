@@ -3,17 +3,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   CircleGauge,
-  Clock,
-  Cloud,
   CloudRain,
   Droplets,
   Gauge,
   MoveUp,
   Snowflake,
-  Thermometer,
   Wind,
 } from "lucide-react";
 
@@ -41,8 +38,8 @@ export default function FetchAndDisplayData() {
   const [currentWeatherIcon, setCurrentWeatherIcon] = useState("");
 
   const fetchData = () => {
-    let userLat = localStorage.getItem("userLat") || "";
-    let userLon = localStorage.getItem("userLon") || "";
+    const userLat = localStorage.getItem("userLat") || "";
+    const userLon = localStorage.getItem("userLon") || "";
 
     const isValidCoordinate = (coord: string) => {
       return coord && !isNaN(Number(coord)) && !/[a-zA-Z]/.test(coord);
@@ -210,8 +207,8 @@ export default function FetchAndDisplayData() {
 
   useEffect(() => {
     const validateCoordinates = () => {
-      let userLat = localStorage.getItem("userLat") || "";
-      let userLon = localStorage.getItem("userLon") || "";
+      const userLat = localStorage.getItem("userLat") || "";
+      const userLon = localStorage.getItem("userLon") || "";
 
       const isValidCoordinate = (coord: string) => {
         return coord && !isNaN(Number(coord)) && !/[a-zA-Z]/.test(coord);
@@ -306,9 +303,9 @@ export default function FetchAndDisplayData() {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className="lucide lucide-windmill"
                   >
                     <path d="m10 14 8 4 2-4L4 6l2-4 8 4" />

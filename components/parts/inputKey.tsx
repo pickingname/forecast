@@ -30,7 +30,7 @@ export default function InputKey() {
         disabled
       />
       <p className="py-2 text-neutral-500 text-sm">
-        Note: API key will only be stored in your browser's localstorage, and
+        Note: API key will only be stored in your browser&apos;s localstorage, and
         will only be used for requesting only
       </p>
       <Button className="" onClick={saveApiKey} disabled>
