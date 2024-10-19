@@ -58,7 +58,7 @@ export default function GetLocation() {
   };
 
   return (
-    <div className="pt-5">
+    <div className="">
       <p className="text-xl pb-2">Input your forecast location</p>
       <div className="space-y-2">
         <Label htmlFor="latitude">Latitude</Label>
@@ -91,11 +91,11 @@ export default function GetLocation() {
         </p>
       </div>
 
-      <Button className="mt-2" onClick={saveCoordinates}>
-        Submit Coordinates
-      </Button>
-      <Button className="mt-2 ml-2" onClick={getCurrentLocation}>
+      <Button className="mt-2" onClick={getCurrentLocation}>
         Get current location
+      </Button>
+      <Button className="mt-2 ml-2" onClick={saveCoordinates}>
+        Save location
       </Button>
 
       <AlertDialog open={openErrorDialog} onOpenChange={setOpenErrorDialog}>
