@@ -4,7 +4,17 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Clock, Cloud, Droplets, Gauge, Thermometer, Wind } from "lucide-react";
+import {
+  Clock,
+  Cloud,
+  CloudRain,
+  Droplets,
+  Gauge,
+  Snowflake,
+  Thermometer,
+  Waves,
+  Wind,
+} from "lucide-react";
 
 export default function FetchAndDisplayData() {
   const [data, setData] = useState(null);
@@ -69,123 +79,123 @@ export default function FetchAndDisplayData() {
 
           switch (current.weather_code) {
             case 0:
-                currentWeatherStatus = "Clear sky";
-                currentWeatherIcon = "☀️";
-                break;
+              currentWeatherStatus = "Clear sky";
+              currentWeatherIcon = "☀️";
+              break;
             case 1:
-                currentWeatherStatus = "Mainly clear";
-                currentWeatherIcon = "🌤️";
-                break;
+              currentWeatherStatus = "Mainly clear";
+              currentWeatherIcon = "🌤️";
+              break;
             case 2:
-                currentWeatherStatus = "Partly cloudy";
-                currentWeatherIcon = "🌥️";
-                break;
+              currentWeatherStatus = "Partly cloudy";
+              currentWeatherIcon = "🌥️";
+              break;
             case 3:
-                currentWeatherStatus = "Overcast";
-                currentWeatherIcon = "☁️";
-                break;
+              currentWeatherStatus = "Overcast";
+              currentWeatherIcon = "☁️";
+              break;
             case 45:
-                currentWeatherStatus = "Fog";
-                currentWeatherIcon = "🌫️";
-                break;
+              currentWeatherStatus = "Fog";
+              currentWeatherIcon = "🌫️";
+              break;
             case 48:
-                currentWeatherStatus = "Depositing rime fog";
-                currentWeatherIcon = "🌫️";
-                break;
+              currentWeatherStatus = "Depositing rime fog";
+              currentWeatherIcon = "🌫️";
+              break;
             case 51:
-                currentWeatherStatus = "Drizzle: Light intensity";
-                currentWeatherIcon = "🌧️";
-                break;
+              currentWeatherStatus = "Drizzle: Light intensity";
+              currentWeatherIcon = "🌧️";
+              break;
             case 53:
-                currentWeatherStatus = "Drizzle: Moderate intensity";
-                currentWeatherIcon = "🌧️!";
-                break;
+              currentWeatherStatus = "Drizzle: Moderate intensity";
+              currentWeatherIcon = "🌧️!";
+              break;
             case 55:
-                currentWeatherStatus = "Drizzle: Dense intensity";
-                currentWeatherIcon = "🌧️!!";
-                break;
+              currentWeatherStatus = "Drizzle: Dense intensity";
+              currentWeatherIcon = "🌧️!!";
+              break;
             case 56:
-                currentWeatherStatus = "Freezing Drizzle: Light intensity";
-                currentWeatherIcon = "🌨️❄️";
-                break;
+              currentWeatherStatus = "Freezing Drizzle: Light intensity";
+              currentWeatherIcon = "🌨️❄️";
+              break;
             case 57:
-                currentWeatherStatus = "Freezing Drizzle: Dense intensity";
-                currentWeatherIcon = "🌨️❄️!!";
-                break;
+              currentWeatherStatus = "Freezing Drizzle: Dense intensity";
+              currentWeatherIcon = "🌨️❄️!!";
+              break;
             case 61:
-                currentWeatherStatus = "Rain: Slight intensity";
-                currentWeatherIcon = "🌧️☔";
-                break;
+              currentWeatherStatus = "Rain: Slight intensity";
+              currentWeatherIcon = "🌧️☔";
+              break;
             case 63:
-                currentWeatherStatus = "Rain: Moderate intensity";
-                currentWeatherIcon = "🌧️☔!";
-                break;
+              currentWeatherStatus = "Rain: Moderate intensity";
+              currentWeatherIcon = "🌧️☔!";
+              break;
             case 65:
-                currentWeatherStatus = "Rain: Heavy intensity";
-                currentWeatherIcon = "🌧️☔!!";
-                break;
+              currentWeatherStatus = "Rain: Heavy intensity";
+              currentWeatherIcon = "🌧️☔!!";
+              break;
             case 66:
-                currentWeatherStatus = "Freezing Rain: Light intensity";
-                currentWeatherIcon = "🌨️❄️☔";
-                break;
+              currentWeatherStatus = "Freezing Rain: Light intensity";
+              currentWeatherIcon = "🌨️❄️☔";
+              break;
             case 67:
-                currentWeatherStatus = "Freezing Rain: Heavy intensity";
-                currentWeatherIcon = "🌨️❄️☔!!";
-                break;
+              currentWeatherStatus = "Freezing Rain: Heavy intensity";
+              currentWeatherIcon = "🌨️❄️☔!!";
+              break;
             case 71:
-                currentWeatherStatus = "Snow fall: Slight intensity";
-                currentWeatherIcon = "🌨️";
-                break;
+              currentWeatherStatus = "Snow fall: Slight intensity";
+              currentWeatherIcon = "🌨️";
+              break;
             case 73:
-                currentWeatherStatus = "Snow fall: Moderate intensity";
-                currentWeatherIcon = "🌨️!";
-                break;
+              currentWeatherStatus = "Snow fall: Moderate intensity";
+              currentWeatherIcon = "🌨️!";
+              break;
             case 75:
-                currentWeatherStatus = "Snow fall: Heavy intensity";
-                currentWeatherIcon = "🌨️!!";
-                break;
+              currentWeatherStatus = "Snow fall: Heavy intensity";
+              currentWeatherIcon = "🌨️!!";
+              break;
             case 77:
-                currentWeatherStatus = "Snow grains";
-                currentWeatherIcon = "🌨️?";
-                break;
+              currentWeatherStatus = "Snow grains";
+              currentWeatherIcon = "🌨️?";
+              break;
             case 80:
-                currentWeatherStatus = "Rain showers: Slight intensity";
-                currentWeatherIcon = "🌧️☔";
-                break;
+              currentWeatherStatus = "Rain showers: Slight intensity";
+              currentWeatherIcon = "🌧️☔";
+              break;
             case 81:
-                currentWeatherStatus = "Rain showers: Moderate intensity";
-                currentWeatherIcon = "🌧️☔!";
-                break;
+              currentWeatherStatus = "Rain showers: Moderate intensity";
+              currentWeatherIcon = "🌧️☔!";
+              break;
             case 82:
-                currentWeatherStatus = "Rain showers: Violent intensity";
-                currentWeatherIcon = "🌧️☔!!";
-                break;
+              currentWeatherStatus = "Rain showers: Violent intensity";
+              currentWeatherIcon = "🌧️☔!!";
+              break;
             case 85:
-                currentWeatherStatus = "Snow showers: Slight intensity";
-                currentWeatherIcon = "🌨️";
-                break;
+              currentWeatherStatus = "Snow showers: Slight intensity";
+              currentWeatherIcon = "🌨️";
+              break;
             case 86:
-                currentWeatherStatus = "Snow showers: Heavy intensity";
-                currentWeatherIcon = "🌨️!";
-                break;
+              currentWeatherStatus = "Snow showers: Heavy intensity";
+              currentWeatherIcon = "🌨️!";
+              break;
             case 95:
-                currentWeatherStatus = "Slight to moderate thunderstorms";
-                currentWeatherIcon = "⛈️";
-                break;
+              currentWeatherStatus = "Slight to moderate thunderstorms";
+              currentWeatherIcon = "⛈️";
+              break;
             case 96:
-                currentWeatherStatus = "Thunderstorm with slight hail";
-                currentWeatherIcon = "⛈️🌨️";
-                break;
+              currentWeatherStatus = "Thunderstorm with slight hail";
+              currentWeatherIcon = "⛈️🌨️";
+              break;
             case 99:
-                currentWeatherStatus = "Thunderstorm with heavy hail";
-                currentWeatherIcon = "⛈️🌨️!!";
-                break;
+              currentWeatherStatus = "Thunderstorm with heavy hail";
+              currentWeatherIcon = "⛈️🌨️!!";
+              break;
             default:
-                currentWeatherStatus = "Unknown weather code";
-                currentWeatherIcon = "?";
-                break;
-        }
-        
+              currentWeatherStatus = "Unknown weather code";
+              currentWeatherIcon = "?";
+              break;
+          }
+
           setCurrentWeatherStatus(currentWeatherStatus);
           setCurrentWeatherIcon(currentWeatherIcon);
         })
@@ -232,22 +242,56 @@ export default function FetchAndDisplayData() {
       {/* <pre>{data ? JSON.stringify(data, null, 2) : "..."}</pre> */}
       {data && (
         <>
-        <div className="" id="top-overview-component">
-          <div className="font-outfit flex flex-wrap items-center">
-            <p className="mr-2 text-6xl pb-2">{currentWeatherIcon}</p>
-            <div>
-              <p className="text-5xl">{forecast.temperature_2m}°C</p>
-              <p>Feels like {forecast.apparent_temperature}°C</p>
+          <div className="" id="top-overview-component">
+            <div className="font-outfit flex flex-wrap items-center">
+              <p className="mr-2 text-6xl pb-2">{currentWeatherIcon}</p>
+              <div>
+                <p>{currentWeatherStatus}</p>
+                <p className="text-5xl">{forecast.temperature_2m}°C</p>
+                <p>Feels like {forecast.apparent_temperature}°C</p>
+              </div>
             </div>
           </div>
-        </div>
+
+          <Card className="w-full font-outfit mt-4">
+            <CardContent>
+              <div className="grid grid-cols-2 gap-4 pt-5">
+                <div className="flex items-center space-x-2">
+                  <Gauge className="h-5 w-5" />
+                  <div>
+                    <p className="">Humidity</p>
+                    <p className="">{forecast.relative_humidity_2m}%</p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Droplets className="h-5 w-5" />
+                  <div>
+                    <p className="">Precipitation</p>
+                    <p className="">{forecast.precipitation} mm</p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <CloudRain className="h-5 w-5" />
+                  <div>
+                    <p className="">Rain</p>
+                    <p className="">{forecast.rain} mm</p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Snowflake className="h-5 w-5" />
+                  <div>
+                    <p className="">Snow</p>
+                    <p className="">{forecast.snowfall} cm</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-20">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Forecast Time
-                </CardTitle>
+                <CardTitle className="">Forecast Time</CardTitle>
                 <Clock className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -256,9 +300,7 @@ export default function FetchAndDisplayData() {
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Temperature
-                </CardTitle>
+                <CardTitle className="">Temperature</CardTitle>
                 <Thermometer className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -272,9 +314,7 @@ export default function FetchAndDisplayData() {
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Relative Humidity
-                </CardTitle>
+                <CardTitle className="">Relative Humidity</CardTitle>
                 <Droplets className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -285,9 +325,7 @@ export default function FetchAndDisplayData() {
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Precipitation
-                </CardTitle>
+                <CardTitle className="">Precipitation</CardTitle>
                 <Cloud className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -301,9 +339,7 @@ export default function FetchAndDisplayData() {
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Current Weather
-                </CardTitle>
+                <CardTitle className="">Current Weather</CardTitle>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -326,7 +362,7 @@ export default function FetchAndDisplayData() {
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Pressure</CardTitle>
+                <CardTitle className="">Pressure</CardTitle>
                 <Gauge className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -337,7 +373,7 @@ export default function FetchAndDisplayData() {
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Wind</CardTitle>
+                <CardTitle className="">Wind</CardTitle>
                 <Wind className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
