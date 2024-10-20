@@ -239,13 +239,13 @@ export default function FetchAndDisplayData() {
   return (
     <div className="pt-5">
       <Button variant="outline" onClick={fetchData}>
-        Fetch forecast
+        Fetch data
       </Button>
       {/* {isLocationInvalid && <p className="text-red-600">Invalid location</p>} */}
       {/* <pre>{data ? JSON.stringify(data, null, 2) : "..."}</pre> */}
       {data && (
         <>
-          <p className="text-xl pt-5 pb-3">Forecast result</p>
+          <p className="text-xl pt-5 pb-2">Fetched result</p>
           <div id="top-overview-component">
             <div className="font-outfit flex flex-wrap items-center">
               <p className="mr-2 text-6xl pb-2">{currentWeatherIcon}</p>

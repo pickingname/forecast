@@ -59,7 +59,7 @@ export default function GetLocation() {
 
   return (
     <div className="">
-      <p className="text-xl pb-2">Input your forecast location</p>
+      <p className="text-xl pb-2">Input your desired location</p>
       <div className="space-y-2">
         <Label htmlFor="latitude">Latitude</Label>
         <Input
