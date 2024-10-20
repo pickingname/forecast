@@ -241,7 +241,7 @@ export default function FetchAndDisplayData() {
       <Button variant="outline" onClick={fetchData}>
         Fetch forecast
       </Button>
-      {isLocationInvalid && <p className="text-red-600">Invalid location</p>}
+      {/* {isLocationInvalid && <p className="text-red-600">Invalid location</p>} */}
       {/* <pre>{data ? JSON.stringify(data, null, 2) : "..."}</pre> */}
       {data && (
         <>
@@ -250,7 +250,10 @@ export default function FetchAndDisplayData() {
             <div className="font-outfit flex flex-wrap items-center">
               <p className="mr-2 text-6xl pb-2">{currentWeatherIcon}</p>
               <div>
-                <p className="text-neutral-600">{currentWeatherStatus}</p>
+                <p className="text-neutral-600">
+                  {currentWeatherStatus}, Cloud coverage: {forecast.cloud_cover}
+                  %
+                </p>
                 <p className="text-5xl">{forecast.temperature_2m}°C</p>
                 <p className="text-neutral-600">
                   Feels like {forecast.apparent_temperature}°C
