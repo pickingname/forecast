@@ -16,7 +16,6 @@ import {
 
 export default function FetchAndDisplayData() {
   const [data, setData] = useState(null);
-  const [isLocationInvalid, setIsLocationInvalid] = useState(false);
   const [forecast, setForecast] = useState({
     time: "",
     temperature_2m: "",
@@ -46,8 +45,6 @@ export default function FetchAndDisplayData() {
     };
 
     if (isValidCoordinate(userLat) && isValidCoordinate(userLon)) {
-      setIsLocationInvalid(false);
-
       axios
         .get(
           `https://api.open-meteo.com/v1/forecast?latitude=${userLat}&longitude=${userLon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover,pressure_msl,surface_pressure,wind_speed_10m,wind_direction_10m,wind_gusts_10m&timeformat=unixtime`
@@ -206,8 +203,6 @@ export default function FetchAndDisplayData() {
         .catch((error) => {
           console.error("Error fetching data:", error);
         });
-    } else {
-      setIsLocationInvalid(true);
     }
   };
 
@@ -220,11 +215,7 @@ export default function FetchAndDisplayData() {
         return coord && !isNaN(Number(coord)) && !/[a-zA-Z]/.test(coord);
       };
 
-      if (isValidCoordinate(userLat) && isValidCoordinate(userLon)) {
-        setIsLocationInvalid(false);
-      } else {
-        setIsLocationInvalid(true);
-      }
+      isValidCoordinate(userLat) && isValidCoordinate(userLon);
     };
 
     validateCoordinates();
@@ -241,7 +232,6 @@ export default function FetchAndDisplayData() {
       <Button variant="outline" onClick={fetchData}>
         Fetch data
       </Button>
-      {/* {isLocationInvalid && <p className="text-red-600">Invalid location</p>} */}
       {/* <pre>{data ? JSON.stringify(data, null, 2) : "..."}</pre> */}
       {data && (
         <>
