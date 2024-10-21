@@ -207,25 +207,29 @@ export default function FetchAndDisplayData() {
   };
 
   useEffect(() => {
-    const validateCoordinates = () => {
-      const userLat = localStorage.getItem("userLat") || "";
-      const userLon = localStorage.getItem("userLon") || "";
+  const validateCoordinates = () => {
+    const userLat = localStorage.getItem("userLat") || "";
+    const userLon = localStorage.getItem("userLon") || "";
 
-      const isValidCoordinate = (coord: string) => {
-        return coord && !isNaN(Number(coord)) && !/[a-zA-Z]/.test(coord);
-      };
-
-      isValidCoordinate(userLat) && isValidCoordinate(userLon);
+    const isValidCoordinate = (coord: string) => {
+      return coord && !isNaN(Number(coord)) && !/[a-zA-Z]/.test(coord);
     };
 
-    validateCoordinates();
+    if (isValidCoordinate(userLat) && isValidCoordinate(userLon)) {
+      setIsLocationInvalid(false);
+    } else {
+      setIsLocationInvalid(true);
+    }
+  };
 
-    window.addEventListener("storage", validateCoordinates);
+  validateCoordinates();
 
-    return () => {
-      window.removeEventListener("storage", validateCoordinates);
-    };
-  }, []);
+  window.addEventListener("storage", validateCoordinates);
+
+  return () => {
+    window.removeEventListener("storage", validateCoordinates);
+  };
+}, []);
 
   return (
     <div className="pt-5">
