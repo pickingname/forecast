@@ -214,12 +214,6 @@ export default function FetchAndDisplayData() {
     const isValidCoordinate = (coord: string) => {
       return coord && !isNaN(Number(coord)) && !/[a-zA-Z]/.test(coord);
     };
-
-    if (isValidCoordinate(userLat) && isValidCoordinate(userLon)) {
-      setIsLocationInvalid(false);
-    } else {
-      setIsLocationInvalid(true);
-    }
   };
 
   validateCoordinates();
