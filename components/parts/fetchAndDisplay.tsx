@@ -515,7 +515,7 @@ export default function FetchAndDisplayData() {
               <CardDescription>
                 Apparent temperature is the temperature that the human body
                 feels when the effects of temperature, wind speed, and humidity
-                are combined. This is also called "Feels like". Hover over the
+                are combined. This is also called &quot;Feels like&quot;. Hover over the
                 chart to view the complete date and time.
               </CardDescription>
             </CardHeader>
