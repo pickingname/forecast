@@ -564,7 +564,7 @@ export default function FetchAndDisplayData() {
             </CardContent>
           </Card>
 
-          <Card className="w-full font-outfit mt-4" id="temp-forecast-chart">
+          <Card className="w-full font-outfit mt-4" id="wind-forecast-chart">
             <CardHeader>
               <CardTitle className="font-normal tracking-normal">
                 Wind speed and Wind gusts forecast in Kilometers per hour
@@ -621,7 +621,7 @@ export default function FetchAndDisplayData() {
             </CardContent>
           </Card>
 
-          <Card className="w-full font-outfit mt-4" id="temp-forecast-chart">
+          <Card className="w-full font-outfit mt-4" id="cloud-forecast-chart">
             <CardHeader>
               <CardTitle className="font-normal tracking-normal">
                 Cloud cover forecast in percentage
@@ -692,7 +692,7 @@ export default function FetchAndDisplayData() {
             </CardContent>
           </Card>
 
-          <Card className="w-full font-outfit mt-4" id="temp-forecast-chart">
+          <Card className="w-full font-outfit mt-4" id="visibility-forecast-chart">
             <CardHeader>
               <CardTitle className="font-normal tracking-normal">
                 Visibility forecast in Meters
