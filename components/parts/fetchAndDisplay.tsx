@@ -473,7 +473,7 @@ export default function FetchAndDisplayData() {
                   <Line
                     dataKey="precipitation"
                     type="linear"
-                    stroke="var(--color-desktop)"
+                    stroke="#38bdf8"
                     strokeWidth={2}
                     dot={true}
                   />
