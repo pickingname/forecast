@@ -16,6 +16,7 @@ import {
 
 export default function FetchAndDisplayData() {
   const [data, setData] = useState(null);
+  const [hourlyData, setHourlyData] = useState(null);
   const [isLocationInvalid, setIsLocationInvalid] = useState(false);
   const [forecast, setForecast] = useState({
     time: "",
@@ -199,11 +200,14 @@ export default function FetchAndDisplayData() {
           setCurrentWeatherStatus(currentWeatherStatus);
           setCurrentWeatherIcon(currentWeatherIcon);
 
-          setTimeout(() => {
-            document
-              .getElementById("wind")
-              ?.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 100);
+          // fetch hourly data which will be used for the chart
+          return axios.get(
+            `https://api.open-meteo.com/v1/forecast?latitude=${userLat}&longitude=${userLon}&hourly=precipitation&timezone=auto&forecast_days=16`
+          );
+        })
+        .then((response) => {
+          setHourlyData(response.data);
+          console.log(response.data);
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
