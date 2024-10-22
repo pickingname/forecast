@@ -33,6 +33,7 @@ export default function FetchAndDisplayData() {
     wind_speed_10m: "",
     wind_direction_10m: "",
     wind_gusts_10m: "",
+    is_day: "",
   });
   const [currentWeatherStatus, setCurrentWeatherStatus] = useState("");
   const [currentWeatherIcon, setCurrentWeatherIcon] = useState("");
@@ -73,6 +74,7 @@ export default function FetchAndDisplayData() {
             wind_speed_10m: current.wind_speed_10m,
             wind_direction_10m: current.wind_direction_10m,
             wind_gusts_10m: current.wind_gusts_10m,
+            is_day: current.is_day,
           });
 
           switch (current.weather_code) {
@@ -245,7 +247,8 @@ export default function FetchAndDisplayData() {
       {/* <pre>{data ? JSON.stringify(data, null, 2) : "..."}</pre> */}
       {data && (
         <>
-          <p className="text-xl pt-5 pb-2">Fetched result</p>
+          <p className="text-xl pt-5">Fetched result</p>
+          <p className="text-neutral-600 pb-2">Last updated: {forecast.time}</p>
           <div id="top-overview-component">
             <div className="font-outfit flex flex-wrap items-center">
               <p className="mr-2 text-6xl pb-2">{currentWeatherIcon}</p>
