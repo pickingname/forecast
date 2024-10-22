@@ -3,7 +3,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   CircleGauge,
   CloudRain,
@@ -11,12 +18,43 @@ import {
   Gauge,
   MoveUp,
   Snowflake,
+  TrendingUp,
   Wind,
 } from "lucide-react";
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  XAxis,
+  YAxis,
+  LineProps,
+  Label,
+  Tooltip,
+} from "recharts";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+
+const chartConfig = {
+  desktop: {
+    label: "Desktop",
+    color: "hsl(var(--chart-1))",
+  },
+} satisfies ChartConfig;
 
 export default function FetchAndDisplayData() {
   const [data, setData] = useState(null);
-  const [hourlyData, setHourlyData] = useState(null);
+  interface HourlyData {
+    time: string[];
+    precipitation: number[];
+  }
+
+  const [hourlyData, setHourlyData] = useState<HourlyData | null>(null);
   const [isLocationInvalid, setIsLocationInvalid] = useState(false);
   const [forecast, setForecast] = useState({
     time: "",
@@ -38,6 +76,12 @@ export default function FetchAndDisplayData() {
   });
   const [currentWeatherStatus, setCurrentWeatherStatus] = useState("");
   const [currentWeatherIcon, setCurrentWeatherIcon] = useState("");
+
+  setTimeout(() => {
+    document
+      .getElementById("top-overview-component")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 100);
 
   const fetchData = () => {
     const userLat = localStorage.getItem("userLat") || "";
@@ -202,12 +246,11 @@ export default function FetchAndDisplayData() {
 
           // fetch hourly data which will be used for the chart
           return axios.get(
-            `https://api.open-meteo.com/v1/forecast?latitude=${userLat}&longitude=${userLon}&hourly=precipitation&timezone=auto&forecast_days=16`
+            `https://api.open-meteo.com/v1/forecast?latitude=${userLat}&longitude=${userLon}&hourly=precipitation&timezone=auto&forecast_days=3`
           );
         })
         .then((response) => {
-          setHourlyData(response.data);
-          console.log(response.data);
+          setHourlyData(response.data.hourly);
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
@@ -241,6 +284,24 @@ export default function FetchAndDisplayData() {
       window.removeEventListener("storage", validateCoordinates);
     };
   }, []);
+
+  const chartData =
+    hourlyData?.time.map((time: string, index: number) => {
+      const date = new Date(time);
+      const formattedTime = date.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+      const year = date.getFullYear();
+      const formattedDate = `${formattedTime} ${day}/${month}/${year}`;
+
+      return {
+        time: formattedDate,
+        precipitation: hourlyData.precipitation[index],
+      };
+    }) || [];
 
   return (
     <div className="pt-5">
@@ -371,6 +432,53 @@ export default function FetchAndDisplayData() {
                   </div>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+          <Card className="w-full font-outfit mt-4" id="precip-forecast-chart">
+            <CardHeader>
+              <CardTitle className="font-normal tracking-normal">
+                3 days precipitation forecast in Millimeters
+              </CardTitle>
+              <CardDescription>
+                The chart displays precipitation data on both rain and snow,
+                hover over it to view the complete date and time.
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              <ChartContainer
+                config={chartConfig}
+                className="min-h-[200px] w-full"
+              >
+                <LineChart
+                  accessibilityLayer
+                  data={chartData}
+                  margin={{
+                    left: 12,
+                    right: 12,
+                  }}
+                >
+                  <CartesianGrid vertical={false} />
+
+                  <XAxis
+                    dataKey="time"
+                    tickLine={true}
+                    axisLine={true}
+                    tickMargin={8}
+                    tickFormatter={(value) => value.slice(0, 3)}
+                  />
+
+                  <Tooltip cursor={true} content={<ChartTooltipContent />}/>
+                  
+                  <Line
+                    dataKey="precipitation"
+                    type="linear"
+                    stroke="var(--color-desktop)"
+                    strokeWidth={2}
+                    dot={true}
+                  />
+                </LineChart>
+              </ChartContainer>
             </CardContent>
           </Card>
         </>
