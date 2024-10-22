@@ -30,6 +30,7 @@ import {
   LineProps,
   Label,
   Tooltip,
+  Legend,
 } from "recharts";
 import {
   ChartConfig,
@@ -52,6 +53,18 @@ export default function FetchAndDisplayData() {
   interface HourlyData {
     time: string[];
     precipitation: number[];
+    temperature_2m: number[];
+    apparent_temperature: number[];
+    wind_speed_10m: number[];
+    wind_gusts_10m: number[];
+    cloud_cover: number[];
+    cloud_cover_low: number[];
+    cloud_cover_mid: number[];
+    cloud_cover_high: number[];
+    relative_humidity_2m: number[];
+    dew_point_2m: number[];
+    surface_pressure: number[];
+    visibility: number[];
   }
 
   const [hourlyData, setHourlyData] = useState<HourlyData | null>(null);
@@ -246,7 +259,7 @@ export default function FetchAndDisplayData() {
 
           // fetch hourly data which will be used for the chart
           return axios.get(
-            `https://api.open-meteo.com/v1/forecast?latitude=${userLat}&longitude=${userLon}&hourly=precipitation&timezone=auto&forecast_days=3`
+            `https://api.open-meteo.com/v1/forecast?latitude=${userLat}&longitude=${userLon}&hourly=precipitation,temperature_2m,apparent_temperature,wind_speed_10m,wind_gusts_10m,cloud_cover,cloud_cover_low,cloud_cover_mid,cloud_cover_high,relative_humidity_2m,dew_point_2m,surface_pressure,visibility&timezone=auto&forecast_days=3`
           );
         })
         .then((response) => {
@@ -300,6 +313,18 @@ export default function FetchAndDisplayData() {
       return {
         time: formattedDate,
         precipitation: hourlyData.precipitation[index],
+        temperature: hourlyData.temperature_2m[index],
+        feels_like: hourlyData.apparent_temperature[index],
+        wind_speed: hourlyData.wind_speed_10m[index],
+        wind_gusts: hourlyData.wind_gusts_10m[index],
+        cloud_cover: hourlyData.cloud_cover[index],
+        cloud_cover_low: hourlyData.cloud_cover_low[index],
+        cloud_cover_mid: hourlyData.cloud_cover_mid[index],
+        cloud_cover_high: hourlyData.cloud_cover_high[index],
+        relative_humidity: hourlyData.relative_humidity_2m[index],
+        dew_point: hourlyData.dew_point_2m[index],
+        surface_pressure: hourlyData.surface_pressure[index],
+        visibility: hourlyData.visibility[index],
       };
     }) || [];
 
@@ -437,7 +462,7 @@ export default function FetchAndDisplayData() {
           <Card className="w-full font-outfit mt-4" id="precip-forecast-chart">
             <CardHeader>
               <CardTitle className="font-normal tracking-normal">
-                3 days precipitation forecast in Millimeters
+                Precipitation forecast in Millimeters
               </CardTitle>
               <CardDescription>
                 The chart displays precipitation data on both rain and snow,
@@ -468,12 +493,247 @@ export default function FetchAndDisplayData() {
                     tickFormatter={(value) => value.slice(0, 3)}
                   />
 
-                  <Tooltip cursor={true} content={<ChartTooltipContent />}/>
-                  
+                  <Tooltip cursor={true} content={<ChartTooltipContent />} />
+
                   <Line
                     dataKey="precipitation"
                     type="linear"
                     stroke="#38bdf8"
+                    strokeWidth={2}
+                    dot={true}
+                  />
+                </LineChart>
+              </ChartContainer>
+            </CardContent>
+          </Card>
+
+          <Card className="w-full font-outfit mt-4" id="temp-forecast-chart">
+            <CardHeader>
+              <CardTitle className="font-normal tracking-normal">
+                Temperature and Apparent temperature forecast in Celsius
+              </CardTitle>
+              <CardDescription>
+                Apparent temperature is the temperature that the human body
+                feels when the effects of temperature, wind speed, and humidity
+                are combined. This is also called "Feels like". Hover over the
+                chart to view the complete date and time.
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              <ChartContainer
+                config={chartConfig}
+                className="min-h-[200px] w-full"
+              >
+                <LineChart
+                  accessibilityLayer
+                  data={chartData}
+                  margin={{
+                    left: 12,
+                    right: 12,
+                  }}
+                >
+                  <CartesianGrid vertical={false} />
+
+                  <XAxis
+                    dataKey="time"
+                    tickLine={true}
+                    axisLine={true}
+                    tickMargin={8}
+                    tickFormatter={(value) => value.slice(0, 3)}
+                  />
+
+                  <Tooltip cursor={true} content={<ChartTooltipContent />} />
+
+                  <Line
+                    dataKey="temperature"
+                    type="linear"
+                    stroke="#fbbf24"
+                    strokeWidth={2}
+                    dot={true}
+                  />
+                  <Line
+                    dataKey="feels_like"
+                    type="linear"
+                    stroke="#ff0000"
+                    strokeWidth={2}
+                    dot={true}
+                  />
+                </LineChart>
+              </ChartContainer>
+            </CardContent>
+          </Card>
+
+          <Card className="w-full font-outfit mt-4" id="temp-forecast-chart">
+            <CardHeader>
+              <CardTitle className="font-normal tracking-normal">
+                Wind speed and Wind gusts forecast in Kilometers per hour
+              </CardTitle>
+              <CardDescription>
+                Wind gusts are sudden, brief increases in wind speed that are
+                usually associated with thunderstorms, cold fronts, and other
+                weather events. Hover over the chart to view the complete date
+                and time.
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              <ChartContainer
+                config={chartConfig}
+                className="min-h-[200px] w-full"
+              >
+                <LineChart
+                  accessibilityLayer
+                  data={chartData}
+                  margin={{
+                    left: 12,
+                    right: 12,
+                  }}
+                >
+                  <CartesianGrid vertical={false} />
+
+                  <XAxis
+                    dataKey="time"
+                    tickLine={true}
+                    axisLine={true}
+                    tickMargin={8}
+                    tickFormatter={(value) => value.slice(0, 3)}
+                  />
+
+                  <Tooltip cursor={true} content={<ChartTooltipContent />} />
+
+                  <Line
+                    dataKey="wind_speed"
+                    type="linear"
+                    stroke="#38bdf8"
+                    strokeWidth={2}
+                    dot={true}
+                  />
+                  <Line
+                    dataKey="wind_gusts"
+                    type="linear"
+                    stroke="#1e40af"
+                    strokeWidth={2}
+                    dot={true}
+                  />
+                </LineChart>
+              </ChartContainer>
+            </CardContent>
+          </Card>
+
+          <Card className="w-full font-outfit mt-4" id="temp-forecast-chart">
+            <CardHeader>
+              <CardTitle className="font-normal tracking-normal">
+                Cloud cover forecast in percentage
+              </CardTitle>
+              <CardDescription>
+                Cloud cover is the fraction of the sky obscured by clouds when
+                observed from a particular location. Hover over the chart to
+                view the complete date and time.
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              <ChartContainer
+                config={chartConfig}
+                className="min-h-[200px] w-full"
+              >
+                <LineChart
+                  accessibilityLayer
+                  data={chartData}
+                  margin={{
+                    left: 12,
+                    right: 12,
+                    top: 12,
+                  }}
+                >
+                  <CartesianGrid vertical={false} />
+
+                  <XAxis
+                    dataKey="time"
+                    tickLine={true}
+                    axisLine={true}
+                    tickMargin={8}
+                    tickFormatter={(value) => value.slice(0, 3)}
+                  />
+
+                  <Tooltip cursor={true} content={<ChartTooltipContent />} />
+
+                  <Line
+                    dataKey="cloud_cover"
+                    type="linear"
+                    stroke="#57534e"
+                    strokeWidth={2}
+                    dot={true}
+                  />
+                  <Line
+                    dataKey="cloud_cover_low"
+                    type="linear"
+                    stroke="#22c55e"
+                    strokeWidth={2}
+                    dot={true}
+                  />
+                  <Line
+                    dataKey="cloud_cover_mid"
+                    type="linear"
+                    stroke="#f97316"
+                    strokeWidth={2}
+                    dot={true}
+                  />
+                  <Line
+                    dataKey="cloud_cover_high"
+                    type="linear"
+                    stroke="#ef4444"
+                    strokeWidth={2}
+                    dot={true}
+                  />
+                </LineChart>
+              </ChartContainer>
+            </CardContent>
+          </Card>
+
+          <Card className="w-full font-outfit mt-4" id="temp-forecast-chart">
+            <CardHeader>
+              <CardTitle className="font-normal tracking-normal">
+                Visibility forecast in Meters
+              </CardTitle>
+              <CardDescription>
+                Visibility is a measure of the distance at which an object or
+                light can be clearly discerned. Hover over the chart to view the
+                complete date and time.
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              <ChartContainer
+                config={chartConfig}
+                className="min-h-[200px] w-full"
+              >
+                <LineChart
+                  accessibilityLayer
+                  data={chartData}
+                  margin={{
+                    left: 12,
+                    right: 12,
+                    top: 12,
+                  }}
+                >
+                  <CartesianGrid vertical={false} />
+
+                  <XAxis
+                    dataKey="time"
+                    tickLine={true}
+                    axisLine={true}
+                    tickMargin={8}
+                    tickFormatter={(value) => value.slice(0, 3)}
+                  />
+
+                  <Tooltip cursor={true} content={<ChartTooltipContent />} />
+
+                  <Line
+                    dataKey="visibility"
+                    type="linear"
+                    stroke="#57534e"
                     strokeWidth={2}
                     dot={true}
                   />
