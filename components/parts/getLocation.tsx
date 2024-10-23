@@ -16,7 +16,6 @@ import {
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./map.css";
-import Link from "next/link";
 
 export default function GetLocation() {
   const [latitude, setLatitude] = useState("");
@@ -45,7 +44,6 @@ export default function GetLocation() {
       boxZoom: true,
       dragRotate: false,
       touchPitch: false,
-      touchZoomRotate: false,
       maplibreLogo: true,
     });
 
