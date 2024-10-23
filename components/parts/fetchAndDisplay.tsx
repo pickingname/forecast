@@ -25,6 +25,7 @@ import {
   LineChart,
   XAxis,
   Tooltip,
+  Legend,
 } from "recharts";
 import {
   ChartConfig,
@@ -477,6 +478,7 @@ export default function FetchAndDisplayData() {
               </div>
             </CardContent>
           </Card>
+
           <Card className="w-full font-outfit mt-4" id="precip-forecast-chart">
             <CardHeader>
               <CardTitle className="font-normal tracking-normal">
@@ -512,6 +514,7 @@ export default function FetchAndDisplayData() {
                   />
 
                   <Tooltip cursor={true} content={<ChartTooltipContent />} />
+                  <Legend/>
 
                   <Line
                     dataKey="precipitation"
@@ -562,17 +565,18 @@ export default function FetchAndDisplayData() {
                   />
 
                   <Tooltip cursor={true} content={<ChartTooltipContent />} />
+                  <Legend/>
 
                   <Line
                     dataKey="temperature"
-                    type="linear"
+                    type="natural"
                     stroke="#fbbf24"
                     strokeWidth={2}
                     dot={true}
                   />
                   <Line
                     dataKey="feels_like"
-                    type="linear"
+                    type="natural"
                     stroke="#ff0000"
                     strokeWidth={2}
                     dot={true}
@@ -619,6 +623,7 @@ export default function FetchAndDisplayData() {
                   />
 
                   <Tooltip cursor={true} content={<ChartTooltipContent />} />
+                  <Legend/>
 
                   <Line
                     dataKey="wind_speed"
@@ -676,6 +681,7 @@ export default function FetchAndDisplayData() {
                   />
 
                   <Tooltip cursor={true} content={<ChartTooltipContent />} />
+                  <Legend/>
 
                   <Line
                     dataKey="cloud_cover"
@@ -747,6 +753,7 @@ export default function FetchAndDisplayData() {
                   />
 
                   <Tooltip cursor={true} content={<ChartTooltipContent />} />
+                  <Legend/>
 
                   <Line
                     dataKey="visibility"
@@ -754,6 +761,7 @@ export default function FetchAndDisplayData() {
                     stroke="#57534e"
                     strokeWidth={2}
                     dot={true}
+                    isAnimationActive={false}
                   />
                 </LineChart>
               </ChartContainer>
