@@ -28,6 +28,7 @@ import {
   Legend,
   ReferenceLine,
   Label,
+  YAxis,
 } from "recharts";
 import {
   ChartConfig,
@@ -572,6 +573,7 @@ export default function FetchAndDisplayData() {
                     tickMargin={8}
                     tickFormatter={(value) => value.slice(0, 3)}
                   />
+                  <YAxis width={28} unit={'mm'} />
 
                   <Tooltip cursor={true} content={<ChartTooltipContent />} />
                   <Legend />
@@ -631,6 +633,7 @@ export default function FetchAndDisplayData() {
                     tickMargin={8}
                     tickFormatter={(value) => value.slice(0, 3)}
                   />
+                  <YAxis width={28} unit={'°C'} />
 
                   <Tooltip cursor={true} content={<ChartTooltipContent />} />
                   <Legend />
@@ -697,6 +700,7 @@ export default function FetchAndDisplayData() {
                     tickMargin={8}
                     tickFormatter={(value) => value.slice(0, 3)}
                   />
+                  <YAxis width={32} unit={'kmh'} />
 
                   <Tooltip cursor={true} content={<ChartTooltipContent />} />
                   <Legend />
@@ -762,6 +766,7 @@ export default function FetchAndDisplayData() {
                     tickMargin={8}
                     tickFormatter={(value) => value.slice(0, 3)}
                   />
+                  <YAxis width={28} unit={'%'} />
 
                   <Tooltip cursor={true} content={<ChartTooltipContent />} />
                   <Legend />
@@ -844,6 +849,7 @@ export default function FetchAndDisplayData() {
                     tickMargin={8}
                     tickFormatter={(value) => value.slice(0, 3)}
                   />
+                  <YAxis width={50} unit={'m'} />
 
                   <Tooltip cursor={true} content={<ChartTooltipContent />} />
                   <Legend />
