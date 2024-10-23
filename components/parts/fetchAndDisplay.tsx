@@ -26,6 +26,8 @@ import {
   XAxis,
   Tooltip,
   Legend,
+  ReferenceLine,
+  Label,
 } from "recharts";
 import {
   ChartConfig,
@@ -65,6 +67,33 @@ const chartConfig = {
     label: "Visibility (m)",
   },
 } satisfies ChartConfig;
+
+let cachedTime: string | null = null;
+let lastUpdateTime: number = 0;
+
+function getRoundedCurrentTime(): string {
+  const now = new Date();
+  const currentTime = now.getTime();
+
+  if (!cachedTime || currentTime - lastUpdateTime > 60000) {
+    lastUpdateTime = currentTime;
+
+    const minutes = now.getMinutes();
+    if (minutes >= 30) {
+      now.setHours(now.getHours() + 1);
+    }
+    now.setMinutes(0, 0, 0);
+
+    const options = { hour: '2-digit' as const, minute: '2-digit' as const, hour12: true };
+    const timeString = now.toLocaleString('en-US', options).replace(/am|pm/i, match => match.toUpperCase());
+
+    const dateString = now.toLocaleDateString('en-GB').split('/').map(part => part.padStart(2, '0')).join('/'); // DD/MM/YY
+
+    cachedTime = `${timeString} ${dateString}`;
+  }
+
+  return cachedTime;
+}
 
 export default function FetchAndDisplayData() {
   const [data, setData] = useState(null);
@@ -501,7 +530,7 @@ export default function FetchAndDisplayData() {
                   margin={{
                     left: 12,
                     right: 12,
-                    top: 12,
+                    top: 15,
                   }}
                 >
                   <CartesianGrid vertical={false} />
@@ -515,7 +544,14 @@ export default function FetchAndDisplayData() {
                   />
 
                   <Tooltip cursor={true} content={<ChartTooltipContent />} />
-                  <Legend/>
+                  <Legend />
+                  <ReferenceLine
+                    x={getRoundedCurrentTime()}
+                    stroke="#dc2626"
+                    isFront={true}
+                  >
+                    <Label value="Current time" position="top" fill="#dc2626" />
+                  </ReferenceLine>
 
                   <Line
                     dataKey="precipitation"
@@ -537,8 +573,8 @@ export default function FetchAndDisplayData() {
               <CardDescription>
                 Apparent temperature is the temperature that the human body
                 feels when the effects of temperature, wind speed, and humidity
-                are combined. This is also called &quot;Feels like&quot;. Hover over the
-                chart to view the complete date and time.
+                are combined. This is also called &quot;Feels like&quot;. Hover
+                over the chart to view the complete date and time.
               </CardDescription>
             </CardHeader>
 
@@ -553,7 +589,7 @@ export default function FetchAndDisplayData() {
                   margin={{
                     left: 12,
                     right: 12,
-                    top: 12,
+                    top: 15,
                   }}
                 >
                   <CartesianGrid vertical={false} />
@@ -567,7 +603,14 @@ export default function FetchAndDisplayData() {
                   />
 
                   <Tooltip cursor={true} content={<ChartTooltipContent />} />
-                  <Legend/>
+                  <Legend />
+                  <ReferenceLine
+                    x={getRoundedCurrentTime()}
+                    stroke="#dc2626"
+                    isFront={true}
+                  >
+                    <Label value="Current time" position="top" fill="#dc2626" />
+                  </ReferenceLine>
 
                   <Line
                     dataKey="temperature"
@@ -612,7 +655,7 @@ export default function FetchAndDisplayData() {
                   margin={{
                     left: 12,
                     right: 12,
-                    top: 12,
+                    top: 15,
                   }}
                 >
                   <CartesianGrid vertical={false} />
@@ -627,6 +670,13 @@ export default function FetchAndDisplayData() {
 
                   <Tooltip cursor={true} content={<ChartTooltipContent />} />
                   <Legend/>
+                  <ReferenceLine
+                    x={getRoundedCurrentTime()}
+                    stroke="#dc2626"
+                    isFront={true}
+                  >
+                    <Label value="Current time" position="top" fill="#dc2626" />
+                  </ReferenceLine>
 
                   <Line
                     dataKey="wind_speed"
@@ -670,7 +720,7 @@ export default function FetchAndDisplayData() {
                   margin={{
                     left: 12,
                     right: 12,
-                    top: 12,
+                    top: 15,
                   }}
                 >
                   <CartesianGrid vertical={false} />
@@ -684,7 +734,14 @@ export default function FetchAndDisplayData() {
                   />
 
                   <Tooltip cursor={true} content={<ChartTooltipContent />} />
-                  <Legend/>
+                  <Legend />
+                  <ReferenceLine
+                    x={getRoundedCurrentTime()}
+                    stroke="#dc2626"
+                    isFront={true}
+                  >
+                    <Label value="Current time" position="top" fill="#dc2626" />
+                  </ReferenceLine>
 
                   <Line
                     dataKey="cloud_cover"
@@ -719,7 +776,10 @@ export default function FetchAndDisplayData() {
             </CardContent>
           </Card>
 
-          <Card className="w-full font-outfit mt-4" id="visibility-forecast-chart">
+          <Card
+            className="w-full font-outfit mt-4"
+            id="visibility-forecast-chart"
+          >
             <CardHeader>
               <CardTitle className="font-normal tracking-normal">
                 Visibility forecast
@@ -742,7 +802,7 @@ export default function FetchAndDisplayData() {
                   margin={{
                     left: 12,
                     right: 12,
-                    top: 12,
+                    top: 15,
                   }}
                 >
                   <CartesianGrid vertical={false} />
@@ -756,7 +816,14 @@ export default function FetchAndDisplayData() {
                   />
 
                   <Tooltip cursor={true} content={<ChartTooltipContent />} />
-                  <Legend/>
+                  <Legend />
+                  <ReferenceLine
+                    x={getRoundedCurrentTime()}
+                    stroke="#dc2626"
+                    isFront={true}
+                  >
+                    <Label value="Current time" position="top" fill="#dc2626" />
+                  </ReferenceLine>
 
                   <Line
                     dataKey="visibility"
