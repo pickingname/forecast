@@ -9,9 +9,9 @@ export default function Home() {
       <FetchAndDisplayData />
       <div>
         {/* NOTE: loads this note and warning with the font so the font is loaded and cached first before the weather data is fetched */}
-        <p className="text-center text-neutral-600 pt-8 font-outfit">
-          Note: Current weather conditions are updated every 15 minutes based on
-          our weather model data
+        <p className="text-center text-neutral-600 pt-4 font-outfit">
+          Current weather conditions are updated every 15 minutes using weather
+          model data from the Open-Meteo API.
         </p>
       </div>
     </div>

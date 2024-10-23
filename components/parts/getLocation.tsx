@@ -16,6 +16,7 @@ import {
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./map.css";
+import Link from "next/link";
 
 export default function GetLocation() {
   const [latitude, setLatitude] = useState("");
@@ -148,7 +149,9 @@ export default function GetLocation() {
 
   return (
     <div className="">
-      <p className="text-xl pb-2">Enter your location manually or select it on the map.</p>
+      <p className="text-xl pb-2">
+        Enter your location manually or select it on the map.
+      </p>
       <div className="space-y-2">
         <Label htmlFor="latitude">Latitude</Label>
         <Input
@@ -184,12 +187,14 @@ export default function GetLocation() {
         <div ref={mapContainer} className="map rounded-lg" />
       </div>
 
-      <Button className="mt-2" onClick={getCurrentLocation}>
-        Get current location (GPS)
-      </Button>
-      <Button className="mt-2 ml-2" onClick={saveCoordinates}>
+      <Button className="mt-2" onClick={saveCoordinates}>
         Save location
       </Button>
+      <Button className="mt-2 ml-2" onClick={getCurrentLocation}>
+        Get current location (GPS)
+      </Button>
+
+      {/* <p className="mt-2 text-neutral-600">Location are saved only in your browser's storage! Check the source code <Link href="https://github.com/pickingname/forecast/blob/core/components/parts/getLocation.tsx" target="_blank" className="underline text-blue-500">here</Link>.</p> */}
 
       <AlertDialog open={openErrorDialog} onOpenChange={setOpenErrorDialog}>
         <AlertDialogContent>
