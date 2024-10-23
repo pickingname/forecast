@@ -25,6 +25,7 @@ export default function GetLocation() {
 
   const mapContainer = useRef(null);
   const map = useRef<maplibregl.Map | null>(null);
+  const marker = useRef<maplibregl.Marker | null>(null);
   const lng = 0;
   const lat = 0;
   const zoom = 1;
@@ -43,6 +44,39 @@ export default function GetLocation() {
       dragRotate: false,
       touchPitch: false,
       touchZoomRotate: false,
+      maplibreLogo: true,
+    });
+
+    map.current.addControl(new maplibregl.NavigationControl());
+
+    map.current.on("click", (e) => {
+      const lat = e.lngLat.lat;
+      const lon = e.lngLat.lng;
+
+      setLatitude(lat.toString());
+      setLongitude(lon.toString());
+
+      localStorage.setItem("userLat", lat.toString());
+      localStorage.setItem("userLon", lon.toString());
+
+      if (marker.current) {
+        marker.current.setLngLat([lon, lat]);
+      } else {
+        marker.current = new maplibregl.Marker()
+          .setLngLat([lon, lat])
+          .addTo(map.current!);
+      }
+      if (map.current) {
+        const easeOutQuint = (t: number) => 1 - Math.pow(1 - t, 5);
+
+        // use easeTo with the easing function and duration
+        // maybe this is just a placebo effect but it feels smoother
+        map.current.easeTo({
+          center: [lon, lat],
+          duration: 500,
+          easing: easeOutQuint,
+        });
+      }
     });
   }, [lng, lat, zoom]);
 
@@ -50,8 +84,26 @@ export default function GetLocation() {
     const storedLat = localStorage.getItem("userLat");
     const storedLon = localStorage.getItem("userLon");
 
-    if (storedLat) setLatitude(storedLat);
-    if (storedLon) setLongitude(storedLon);
+    if (storedLat && storedLon) {
+      const lat = parseFloat(storedLat);
+      const lon = parseFloat(storedLon);
+
+      if (lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180) {
+        setLatitude(storedLat);
+        setLongitude(storedLon);
+
+        if (map.current) {
+          if (marker.current) {
+            marker.current.setLngLat([lon, lat]);
+          } else {
+            marker.current = new maplibregl.Marker()
+              .setLngLat([lon, lat])
+              .addTo(map.current);
+          }
+          map.current.setCenter([lon, lat]);
+        }
+      }
+    }
   }, []);
 
   const saveCoordinates = () => {
@@ -71,6 +123,17 @@ export default function GetLocation() {
 
           localStorage.setItem("userLat", lat.toString());
           localStorage.setItem("userLon", lon.toString());
+
+          if (map.current) {
+            if (marker.current) {
+              marker.current.setLngLat([lon, lat]);
+            } else {
+              marker.current = new maplibregl.Marker()
+                .setLngLat([lon, lat])
+                .addTo(map.current);
+            }
+            map.current.setCenter([lon, lat]);
+          }
         },
         (error) => {
           setErrorMessage("Error getting location: " + error.message);
