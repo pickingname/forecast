@@ -148,7 +148,7 @@ export default function GetLocation() {
 
   return (
     <div className="">
-      <p className="text-xl pb-2">Input your desired location</p>
+      <p className="text-xl pb-2">Enter your location manually or select it on the map.</p>
       <div className="space-y-2">
         <Label htmlFor="latitude">Latitude</Label>
         <Input
@@ -185,7 +185,7 @@ export default function GetLocation() {
       </div>
 
       <Button className="mt-2" onClick={getCurrentLocation}>
-        Get current location
+        Get current location (GPS)
       </Button>
       <Button className="mt-2 ml-2" onClick={saveCoordinates}>
         Save location
