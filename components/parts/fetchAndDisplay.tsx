@@ -7,7 +7,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -18,7 +17,6 @@ import {
   Gauge,
   MoveUp,
   Snowflake,
-  TrendingUp,
   Wind,
 } from "lucide-react";
 import {
@@ -26,25 +24,44 @@ import {
   Line,
   LineChart,
   XAxis,
-  YAxis,
-  LineProps,
-  Label,
   Tooltip,
-  Legend,
 } from "recharts";
 import {
   ChartConfig,
   ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "hsl(var(--chart-1))",
+  feels_like: {
+    label: "Feels like (°C)",
+  },
+  precipitation: {
+    label: "Precipitation (mm)",
+  },
+  temperature: {
+    label: "Temperature (°C)",
+  },
+  wind_gusts: {
+    label: "Wind Gusts (km/h)",
+  },
+  wind_speed: {
+    label: "Wind Speed (km/h)",
+  },
+  cloud_cover: {
+    label: "Cloud Cover (%)",
+  },
+  cloud_cover_low: {
+    label: "Cloud Cover Low (%)",
+  },
+  cloud_cover_mid: {
+    label: "Cloud Cover Mid (%)",
+  },
+  cloud_cover_high: {
+    label: "Cloud Cover High (%)",
+  },
+  visibility: {
+    label: "Visibility (m)",
   },
 } satisfies ChartConfig;
 
@@ -339,6 +356,7 @@ export default function FetchAndDisplayData() {
         <>
           <p className="text-xl pt-5">Fetched result</p>
           <p className="text-neutral-600 pb-2">Last updated: {forecast.time}</p>
+
           <div id="top-overview-component">
             <div className="font-outfit flex flex-wrap items-center">
               <p className="mr-2 text-6xl pb-2">{currentWeatherIcon}</p>
@@ -355,7 +373,7 @@ export default function FetchAndDisplayData() {
             </div>
           </div>
 
-          <Card className="w-full font-outfit mt-4" id="water">
+          <Card className="w-full font-outfit mt-4" id="water-card">
             <CardContent>
               <div className="grid grid-cols-2 gap-4 pt-5">
                 <div className="flex items-center space-x-4">
@@ -394,7 +412,7 @@ export default function FetchAndDisplayData() {
             </CardContent>
           </Card>
 
-          <Card className="w-full font-outfit mt-4" id="wind">
+          <Card className="w-full font-outfit mt-4" id="wind-card">
             <CardContent>
               <div className="grid grid-cols-2 gap-4 pt-5">
                 <div className="flex items-center space-x-4">
@@ -462,7 +480,7 @@ export default function FetchAndDisplayData() {
           <Card className="w-full font-outfit mt-4" id="precip-forecast-chart">
             <CardHeader>
               <CardTitle className="font-normal tracking-normal">
-                Precipitation forecast in Millimeters
+                Precipitation forecast
               </CardTitle>
               <CardDescription>
                 The chart displays precipitation data on both rain and snow,
@@ -510,7 +528,7 @@ export default function FetchAndDisplayData() {
           <Card className="w-full font-outfit mt-4" id="temp-forecast-chart">
             <CardHeader>
               <CardTitle className="font-normal tracking-normal">
-                Temperature and Apparent temperature forecast in Celsius
+                Temperature and Apparent temperature forecast
               </CardTitle>
               <CardDescription>
                 Apparent temperature is the temperature that the human body
@@ -567,7 +585,7 @@ export default function FetchAndDisplayData() {
           <Card className="w-full font-outfit mt-4" id="wind-forecast-chart">
             <CardHeader>
               <CardTitle className="font-normal tracking-normal">
-                Wind speed and Wind gusts forecast in Kilometers per hour
+                Wind speed and Wind gusts forecast
               </CardTitle>
               <CardDescription>
                 Wind gusts are sudden, brief increases in wind speed that are
@@ -624,7 +642,7 @@ export default function FetchAndDisplayData() {
           <Card className="w-full font-outfit mt-4" id="cloud-forecast-chart">
             <CardHeader>
               <CardTitle className="font-normal tracking-normal">
-                Cloud cover forecast in percentage
+                Cloud cover forecast
               </CardTitle>
               <CardDescription>
                 Cloud cover is the fraction of the sky obscured by clouds when
@@ -695,7 +713,7 @@ export default function FetchAndDisplayData() {
           <Card className="w-full font-outfit mt-4" id="visibility-forecast-chart">
             <CardHeader>
               <CardTitle className="font-normal tracking-normal">
-                Visibility forecast in Meters
+                Visibility forecast
               </CardTitle>
               <CardDescription>
                 Visibility is a measure of the distance at which an object or
