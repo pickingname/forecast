@@ -23,6 +23,7 @@ export default function GetLocation() {
   const [longitude, setLongitude] = useState("");
   const [openErrorDialog, setOpenErrorDialog] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const errorTitle = "Failed to get location";
 
   const mapContainer = useRef(null);
   const map = useRef<maplibregl.Map | null>(null);
@@ -220,7 +221,7 @@ export default function GetLocation() {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle className="font-[family-name:var(--font-geist-sans)] font-normal">
-              Failed to get location
+              {errorTitle}
             </AlertDialogTitle>
             <AlertDialogDescription className="font-[family-name:var(--font-geist-mono)]">
               {errorMessage}

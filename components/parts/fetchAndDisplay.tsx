@@ -34,6 +34,15 @@ import {
   ChartContainer,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const chartConfig = {
   feels_like: {
@@ -84,10 +93,20 @@ function getRoundedCurrentTime(): string {
     }
     now.setMinutes(0, 0, 0);
 
-    const options = { hour: '2-digit' as const, minute: '2-digit' as const, hour12: true };
-    const timeString = now.toLocaleString('en-US', options).replace(/am|pm/i, match => match.toUpperCase());
+    const options = {
+      hour: "2-digit" as const,
+      minute: "2-digit" as const,
+      hour12: true,
+    };
+    const timeString = now
+      .toLocaleString("en-US", options)
+      .replace(/am|pm/i, (match) => match.toUpperCase());
 
-    const dateString = now.toLocaleDateString('en-GB').split('/').map(part => part.padStart(2, '0')).join('/'); // DD/MM/YY
+    const dateString = now
+      .toLocaleDateString("en-GB")
+      .split("/")
+      .map((part) => part.padStart(2, "0"))
+      .join("/"); // DD/MM/YY
 
     cachedTime = `${timeString} ${dateString}`;
   }
@@ -136,6 +155,9 @@ export default function FetchAndDisplayData() {
   });
   const [currentWeatherStatus, setCurrentWeatherStatus] = useState("");
   const [currentWeatherIcon, setCurrentWeatherIcon] = useState("");
+  const [openErrorDialog, setOpenErrorDialog] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const errorTitle = "Failed to fetch data";
 
   setTimeout(() => {
     document
@@ -314,9 +336,17 @@ export default function FetchAndDisplayData() {
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
+          setErrorMessage(
+            `Error fetching data: ${error.message}. Please try again later.`
+          );
+          setOpenErrorDialog(true);
         });
     } else {
       setIsLocationInvalid(true);
+      setErrorMessage(
+        `Location is invalid, please set a valid location and click "Save location".`
+      );
+      setOpenErrorDialog(true);
     }
   };
 
@@ -669,7 +699,7 @@ export default function FetchAndDisplayData() {
                   />
 
                   <Tooltip cursor={true} content={<ChartTooltipContent />} />
-                  <Legend/>
+                  <Legend />
                   <ReferenceLine
                     x={getRoundedCurrentTime()}
                     stroke="#dc2626"
@@ -839,6 +869,26 @@ export default function FetchAndDisplayData() {
           </Card>
         </>
       )}
+      <AlertDialog open={openErrorDialog} onOpenChange={setOpenErrorDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="font-[family-name:var(--font-geist-sans)] font-normal">
+              {errorTitle}
+            </AlertDialogTitle>
+            <AlertDialogDescription className="font-[family-name:var(--font-geist-mono)]">
+              {errorMessage}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction
+              onClick={() => setOpenErrorDialog(false)}
+              className="font-[family-name:var(--font-geist-sans)] font-normal"
+            >
+              OK
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
