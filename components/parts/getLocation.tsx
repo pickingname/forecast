@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -13,12 +13,38 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+import "./map.css";
 
 export default function GetLocation() {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [openErrorDialog, setOpenErrorDialog] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const mapContainer = useRef(null);
+  const map = useRef<maplibregl.Map | null>(null);
+  const lng = 0;
+  const lat = 0;
+  const zoom = 1;
+
+  useEffect(() => {
+    if (map.current || !mapContainer.current) return;
+
+    map.current = new maplibregl.Map({
+      container: mapContainer.current,
+      style:
+        "https://wms.wheregroup.com/tileserver/style/klokantech-basic.json",
+      center: [lng, lat],
+      zoom: zoom,
+      attributionControl: false,
+      boxZoom: true,
+      dragRotate: false,
+      touchPitch: false,
+      touchZoomRotate: false,
+    });
+  }, [lng, lat, zoom]);
 
   useEffect(() => {
     const storedLat = localStorage.getItem("userLat");
@@ -91,6 +117,10 @@ export default function GetLocation() {
         </p>
       </div>
 
+      <div className="map-wrap w-full mt-1">
+        <div ref={mapContainer} className="map rounded-lg" />
+      </div>
+
       <Button className="mt-2" onClick={getCurrentLocation}>
         Get current location
       </Button>
@@ -101,13 +131,18 @@ export default function GetLocation() {
       <AlertDialog open={openErrorDialog} onOpenChange={setOpenErrorDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle className="font-[family-name:var(--font-geist-sans)] font-normal">Failed to get location</AlertDialogTitle>
+            <AlertDialogTitle className="font-[family-name:var(--font-geist-sans)] font-normal">
+              Failed to get location
+            </AlertDialogTitle>
             <AlertDialogDescription className="font-[family-name:var(--font-geist-mono)]">
               {errorMessage}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogAction onClick={() => setOpenErrorDialog(false)} className="font-[family-name:var(--font-geist-sans)] font-normal">
+            <AlertDialogAction
+              onClick={() => setOpenErrorDialog(false)}
+              className="font-[family-name:var(--font-geist-sans)] font-normal"
+            >
               OK
             </AlertDialogAction>
           </AlertDialogFooter>

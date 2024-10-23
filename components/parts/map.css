@@ -1,0 +1,11 @@
+.map-wrap {
+    position: relative;
+    width: 100%;
+    height: 420px;
+}
+
+.map {
+    position: absolute;
+    width: 100%;
+    height: 420px; /* Ensure the map fills the container */
+}
