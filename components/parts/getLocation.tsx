@@ -16,6 +16,7 @@ import {
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./map.css";
+import { useToast } from "@/hooks/use-toast"
 
 export default function GetLocation() {
   const [latitude, setLatitude] = useState("");
@@ -23,6 +24,7 @@ export default function GetLocation() {
   const [openErrorDialog, setOpenErrorDialog] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const errorTitle = "Failed to get location";
+  const { toast } = useToast()
 
   const mapContainer = useRef(null);
   const map = useRef<maplibregl.Map | null>(null);
@@ -58,6 +60,9 @@ export default function GetLocation() {
 
       localStorage.setItem("userLat", lat.toString());
       localStorage.setItem("userLon", lon.toString());
+      toast({
+        description: "Location has been saved in your browser.",
+      })
 
       if (marker.current) {
         marker.current.setLngLat([lon, lat]);
@@ -94,15 +99,12 @@ export default function GetLocation() {
 
         if (map.current) {
           if (marker.current) {
-            console.log("setting center if");
             marker.current.setLngLat([lon, lat]);
           } else {
-            console.log("es center");
             marker.current = new maplibregl.Marker()
               .setLngLat([lon, lat])
               .addTo(map.current);
           }
-          console.log("setting center");
           const easeOutQuint = (t: number) => 1 - Math.pow(1 - t, 5);
 
           // use easeTo with the easing function and duration
@@ -120,6 +122,9 @@ export default function GetLocation() {
   const saveCoordinates = () => {
     localStorage.setItem("userLat", latitude);
     localStorage.setItem("userLon", longitude);
+    toast({
+      description: "Location has been saved in your browser.",
+    })
   };
 
   const getCurrentLocation = () => {
@@ -134,6 +139,9 @@ export default function GetLocation() {
 
           localStorage.setItem("userLat", lat.toString());
           localStorage.setItem("userLon", lon.toString());
+          toast({
+            description: "Location has been saved in your browser.",
+          })
 
           if (map.current) {
             if (marker.current) {
