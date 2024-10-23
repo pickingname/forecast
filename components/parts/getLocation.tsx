@@ -95,13 +95,24 @@ export default function GetLocation() {
 
         if (map.current) {
           if (marker.current) {
+            console.log("setting center if");
             marker.current.setLngLat([lon, lat]);
           } else {
+            console.log("es center");
             marker.current = new maplibregl.Marker()
               .setLngLat([lon, lat])
               .addTo(map.current);
           }
-          map.current.setCenter([lon, lat]);
+          console.log("setting center");
+          const easeOutQuint = (t: number) => 1 - Math.pow(1 - t, 5);
+
+          // use easeTo with the easing function and duration
+          // maybe this is just a placebo effect but it feels smoother
+          map.current.easeTo({
+            center: [lon, lat],
+            duration: 500,
+            easing: easeOutQuint,
+          });
         }
       }
     }
@@ -133,7 +144,16 @@ export default function GetLocation() {
                 .setLngLat([lon, lat])
                 .addTo(map.current);
             }
-            map.current.setCenter([lon, lat]);
+            const easeOutQuint = (t: number) => 1 - Math.pow(1 - t, 5);
+
+            // use easeTo with the easing function and duration
+            // maybe this is just a placebo effect but it feels smoother
+            map.current.easeTo({
+              center: [lon, lat],
+              duration: 250,
+              zoom: 3.5,
+              easing: easeOutQuint,
+            });
           }
         },
         (error) => {
