@@ -106,7 +106,7 @@ export default function GetLocation() {
         }
       });
 
-  }, [lng, lat, zoom]);
+  }, [lng, lat, zoom, toast]);
 
   useEffect(() => {
     const storedLat = localStorage.getItem("userLat");
@@ -181,7 +181,7 @@ export default function GetLocation() {
             map.current.easeTo({
               center: [lon, lat],
               duration: 250,
-              zoom: 3.5,
+              zoom: 9,
               easing: easeOutQuint,
             });
           }
