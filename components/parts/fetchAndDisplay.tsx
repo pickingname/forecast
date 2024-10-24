@@ -573,7 +573,7 @@ export default function FetchAndDisplayData() {
                     tickMargin={8}
                     tickFormatter={(value) => value.slice(0, 3)}
                   />
-                  <YAxis width={28} unit={'mm'} />
+                  <YAxis width={28} unit={'mm'} allowDecimals={false} />
 
                   <Tooltip cursor={true} content={<ChartTooltipContent />} />
                   <Legend />
