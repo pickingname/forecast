@@ -62,7 +62,7 @@ export default function GetLocation() {
       localStorage.setItem("userLon", lon.toString());
       toast({
         description: "Location has been saved in your browser.",
-      })
+      });
 
       if (marker.current) {
         marker.current.setLngLat([lon, lat]);
@@ -83,6 +83,29 @@ export default function GetLocation() {
         });
       }
     });
+
+    fetch("https://api.rainviewer.com/public/weather-maps.json")
+      .then((response) => response.json())
+      .then((data) => {
+        const lastFrame = data.radar.past[data.radar.past.length - 1];
+        const tileUrl = `https://tilecache.rainviewer.com/v2/radar/${lastFrame.path}/256/{z}/{x}/{y}/8/1_1.png`;
+
+        if (map.current) {
+          map.current.addLayer({
+            id: "rainviewer",
+            type: "raster",
+            source: {
+              type: "raster",
+              tiles: [tileUrl],
+              tileSize: 256,
+            },
+            paint: {
+              "raster-opacity": 0.5,
+            },
+          });
+        }
+      });
+
   }, [lng, lat, zoom]);
 
   useEffect(() => {
