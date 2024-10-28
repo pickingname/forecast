@@ -23,7 +23,7 @@ const BrowserWarningBanner = () => {
   return (
     <div className="bg-neutral-800 text-white font-outfit text-center p-1.5 top-0 left-0 right-0 z-50">
       <p className="m-0 text-lg">
-        Did you know? This website&apos;s user interface isn&apos;t rendering correctly in
+        Warning: This website&apos;s user interface isn&apos;t rendering correctly in several
         Chrome-based browsers.{" "}
         <span className="text-red-500">It seems you&apos;re using one.</span> Please
         consider switching to Firefox or Safari.
