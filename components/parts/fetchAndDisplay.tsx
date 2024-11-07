@@ -345,7 +345,7 @@ export default function FetchAndDisplayData() {
     } else {
       setIsLocationInvalid(true);
       setErrorMessage(
-        `Location is invalid, please set a valid location and click "Save location".`
+        `Location is invalid, please set a valid location by clicking anywhere on a map and click "Save location".`
       );
       setOpenErrorDialog(true);
     }
