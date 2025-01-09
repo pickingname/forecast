@@ -16,7 +16,7 @@ import {
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./map.css";
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast";
 
 export default function GetLocation() {
   const [latitude, setLatitude] = useState("");
@@ -24,7 +24,7 @@ export default function GetLocation() {
   const [openErrorDialog, setOpenErrorDialog] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const errorTitle = "Failed to get location";
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   const mapContainer = useRef(null);
   const map = useRef<maplibregl.Map | null>(null);
@@ -38,8 +38,7 @@ export default function GetLocation() {
 
     map.current = new maplibregl.Map({
       container: mapContainer.current,
-      style:
-        "https://wms.wheregroup.com/tileserver/style/klokantech-basic.json",
+      style: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
       center: [lng, lat],
       zoom: zoom,
       attributionControl: false,
@@ -105,7 +104,6 @@ export default function GetLocation() {
           });
         }
       });
-
   }, [lng, lat, zoom, toast]);
 
   useEffect(() => {
@@ -147,7 +145,7 @@ export default function GetLocation() {
     localStorage.setItem("userLon", longitude);
     toast({
       description: "Location has been saved in your browser.",
-    })
+    });
   };
 
   const getCurrentLocation = () => {
@@ -164,7 +162,7 @@ export default function GetLocation() {
           localStorage.setItem("userLon", lon.toString());
           toast({
             description: "Location has been saved in your browser.",
-          })
+          });
 
           if (map.current) {
             if (marker.current) {
