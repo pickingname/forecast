@@ -86,8 +86,9 @@ export default function GetLocation() {
     fetch("https://api.rainviewer.com/public/weather-maps.json")
       .then((response) => response.json())
       .then((data) => {
+        const host = data.host;
         const lastFrame = data.radar.past[data.radar.past.length - 1];
-        const tileUrl = `https://tilecache.rainviewer.com/v2/radar/${lastFrame.path}/256/{z}/{x}/{y}/8/1_1.png`;
+        const tileUrl = `${host}${lastFrame.path}/256/{z}/{x}/{y}/8/1_1.png`;
 
         if (map.current) {
           map.current.addLayer({
@@ -187,7 +188,7 @@ export default function GetLocation() {
         (error) => {
           setErrorMessage("Error getting location: " + error.message);
           setOpenErrorDialog(true);
-        }
+        },
       );
     } else {
       setErrorMessage("Geolocation is not supported by this browser.");
